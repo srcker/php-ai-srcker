@@ -1,0 +1,22 @@
+{
+  "name": "srcker/ai",
+  "description": "常用函数库",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Sinda",
+      "email": "sinda@srcker.com"
+    }
+  ],
+  "require": {
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "srcker\\ai\\": "src"
+    },
+    "files": [
+      "src/openai.php"
+    ]
+  }
+}
