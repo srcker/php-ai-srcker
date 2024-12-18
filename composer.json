@@ -1,5 +1,5 @@
 {
-  "name": "srcker/ai",
+  "name": "srcker/openai",
   "description": "常用函数库",
   "license": "Apache-2.0",
   "authors": [
@@ -14,9 +14,6 @@
   "autoload": {
     "psr-4": {
       "srcker\\ai\\": "src"
-    },
-    "files": [
-      "src/openai.php"
-    ]
+    }
   }
 }
