@@ -2,6 +2,8 @@
 
 namespace srcker\ai\chat;
 use srcker\ai\entity\Message;
+use srcker\ai\entity\StreamOptionsParam;
+use srcker\ai\entity\ToolParam;
 
 /**
  * @project php-ai-srcker
@@ -14,32 +16,48 @@ class ChatCompletionRequest
 {
     // 您创建的推理接入点 ID
     private string $model;
+
     // 由目前为止的对话组成的消息列表
     /** @var Message[] */
     private array $messages = [];
+
     // 响应内容是否流式返回
     private bool $stream = false;
+
     // 流式响应的选项。仅当 `stream: true` 时可以设置 `stream_options` 参数。
+    /** @var StreamOptionsParam[] **/
     private array $streamOptions = [];
+
     // 模型回复最大长度（单位 token），取值范围为 [0, 4096]
     private int $maxTokens = 4096;
+
     // 模型遇到 `stop` 字段所指定的字符串时将停止继续生成，这个词语本身不会输出。最多支持 4 个字符串。
     private $stop;
+
     // 频率惩罚系数。如果值为正，会根据新 token 在文本中的出现频率对其进行惩罚，从而降低模型逐字重复的可能性。取值范围为 [-2.0, 2.0]。
     private float $frequencyPenalty = 0;
+
     // 存在惩罚系数。如果值为正，会根据新 token 到目前为止是否出现在文本中对其进行惩罚，从而增加模型谈论新主题的可能性。取值范围为 [-2.0, 2.0]。
     private float $presencePenalty = 0;
+
     // 采样温度。控制了生成文本时对每个候选词的概率分布进行平滑的程度。取值范围为 [0, 1]。
     private float $temperature = 1;
+
+
     // 核采样概率阈值。模型会考虑概率质量在 `top_p` 内的 token 结果。取值范围为 [0, 1]。
     private float $topP = 0.7;
+
     // 是否返回输出 tokens 的对数概率。
     private bool $logprobs = false;
+
     // 指定每个输出 token 位置最有可能返回的 token 数量，每个 token 都有关联的对数概率。仅当 `logprobs: true` 时可以设置 `top_logprobs` 参数，取值范围为 [0, 20]。
     private int $topLogprobs = 0;
+
     // 调整指定 token 在模型输出内容中出现的概率，使模型生成的内容更加符合特定的偏好。
     private array $logitBias = [];
+
     // 模型可以调用的工具列表。目前，仅函数作为工具被支持。
+    /** @var ToolParam[] **/
     private array $tools = [];
 
     /**
