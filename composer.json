@@ -1,6 +1,6 @@
 {
   "name": "srcker/openai",
-  "description": "常用函数库",
+  "description": "常用大模型请求结构",
   "license": "Apache-2.0",
   "authors": [
     {
