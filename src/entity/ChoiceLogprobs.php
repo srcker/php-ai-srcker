@@ -11,18 +11,45 @@ namespace srcker\ai\entity;
 
 class ChoiceLogprobs
 {
-    // `message`列表中每个 `content` 元素中的token对数概率信息
+    // `message` 列表中每个 `content` 元素中的 token 对数概率信息
+    // @var array<>
     private array $content = [];
 
     /**
-     * 设置content属性，并返回当前对象方便链式调用
-     *
-     * @param array $content token对数概率信息
-     * @return ChoiceLogprobs 当前对象
+     * 构造方法
+     * @param array $content
      */
-    public function setContent(array $content): ChoiceLogprobs
+    public function __construct(array $content = [])
     {
         $this->content = $content;
-        return $this;
+    }
+
+    /**
+     * 获取 content 中的 token 对数概率信息
+     * @return array
+     */
+    public function getContent(): array
+    {
+        return $this->content;
+    }
+
+    /**
+     * 设置 content 中的 token 对数概率信息
+     * @param array $content
+     */
+    public function setContent(array $content): void
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * 将对象转换为数组形式
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'content' => $this->content,
+        ];
     }
 }

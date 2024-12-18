@@ -15,42 +15,86 @@ class FunctionDefinition
     private string $name;
     // 对函数用途的描述，供模型判断何时以及如何调用该工具函数
     private string $description = '';
-    // 函数请求参数，以JSON Schema格式描述
+    // 函数请求参数，以 JSON Schema 格式描述
     private object $parameters;
 
     /**
-     * 设置name属性，并返回当前对象方便链式调用
-     *
-     * @param string $name 函数的名称
-     * @return FunctionDefinition 当前对象
+     * 构造方法
+     * @param string $name
+     * @param string $description
+     * @param object $parameters
      */
-    public function setName(string $name): FunctionDefinition
+    public function __construct(string $name, string $description, object $parameters)
     {
         $this->name = $name;
-        return $this;
+        $this->description = $description;
+        $this->parameters = $parameters;
     }
 
     /**
-     * 设置description属性，并返回当前对象方便链式调用
-     *
-     * @param string $description 对函数用途的描述
-     * @return FunctionDefinition 当前对象
+     * 获取函数名称
+     * @return string
      */
-    public function setDescription(string $description): FunctionDefinition
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * 设置函数名称
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * 获取函数描述
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * 设置函数描述
+     * @param string $description
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-        return $this;
     }
 
     /**
-     * 设置parameters属性，并返回当前对象方便链式调用
-     *
-     * @param object $parameters 函数请求参数（JSON Schema格式）
-     * @return FunctionDefinition 当前对象
+     * 获取函数请求参数
+     * @return object
      */
-    public function setParameters(object $parameters): FunctionDefinition
+    public function getParameters(): object
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * 设置函数请求参数
+     * @param object $parameters
+     */
+    public function setParameters(object $parameters): void
     {
         $this->parameters = $parameters;
-        return $this;
+    }
+
+    /**
+     * 将对象转换为数组形式
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'parameters' => $this->parameters, // 假设需要进一步序列化时，调用相关方法
+        ];
     }
 }

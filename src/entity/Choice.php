@@ -21,50 +21,88 @@ class Choice
     private ChoiceLogprobs $logprobs;
 
     /**
-     * 设置index属性，并返回当前对象方便链式调用
-     *
-     * @param int $index 当前元素在 `choices` 列表的索引
-     * @return Choice 当前对象
+     * 获取当前元素的索引
+     * @return int
      */
-    public function setIndex(int $index): Choice
+    public function getIndex(): int
+    {
+        return $this->index;
+    }
+
+    /**
+     * 设置当前元素的索引
+     * @param int $index
+     */
+    public function setIndex(int $index): void
     {
         $this->index = $index;
-        return $this;
     }
 
     /**
-     * 设置finishReason属性，并返回当前对象方便链式调用
-     *
-     * @param string $finishReason 模型停止生成token的原因
-     * @return Choice 当前对象
+     * 获取模型停止生成的原因
+     * @return string
      */
-    public function setFinishReason(string $finishReason): Choice
+    public function getFinishReason(): string
+    {
+        return $this->finishReason;
+    }
+
+    /**
+     * 设置模型停止生成的原因
+     * @param string $finishReason
+     */
+    public function setFinishReason(string $finishReason): void
     {
         $this->finishReason = $finishReason;
-        return $this;
     }
 
     /**
-     * 设置message属性，并返回当前对象方便链式调用
-     *
-     * @param Message $message 模型输出的内容
-     * @return Choice 当前对象
+     * 获取模型输出的内容
+     * @return Message
      */
-    public function setMessage(Message $message): Choice
+    public function getMessage(): Message
+    {
+        return $this->message;
+    }
+
+    /**
+     * 设置模型输出的内容
+     * @param Message $message
+     */
+    public function setMessage(Message $message): void
     {
         $this->message = $message;
-        return $this;
     }
 
     /**
-     * 设置logprobs属性，并返回当前对象方便链式调用
-     *
-     * @param ChoiceLogprobs $logprobs 当前内容的对数概率信息
-     * @return Choice 当前对象
+     * 获取当前内容的对数概率信息
+     * @return ChoiceLogprobs
      */
-    public function setLogprobs(ChoiceLogprobs $logprobs): Choice
+    public function getLogprobs(): ChoiceLogprobs
+    {
+        return $this->logprobs;
+    }
+
+    /**
+     * 设置当前内容的对数概率信息
+     * @param ChoiceLogprobs $logprobs
+     */
+    public function setLogprobs(ChoiceLogprobs $logprobs): void
     {
         $this->logprobs = $logprobs;
-        return $this;
+    }
+
+    /**
+     * 将对象转换为数组形式
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'index' => $this->index,
+            'finishReason' => $this->finishReason,
+            'message' => $this->message->toArray(), // 假设 Message 类有 toArray 方法
+            'logprobs' => $this->logprobs->toArray(), // 假设 ChoiceLogprobs 类有 toArray 方法
+        ];
     }
 }

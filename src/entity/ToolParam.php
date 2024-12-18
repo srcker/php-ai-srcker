@@ -17,26 +17,58 @@ class ToolParam
     private FunctionDefinition $function;
 
     /**
-     * 设置type属性，并返回当前对象方便链式调用
-     *
-     * @param string $type 工具类型
-     * @return ToolParam 当前对象
+     * 构造方法
+     * @param string $type
+     * @param FunctionDefinition $function
      */
-    public function setType(string $type): ToolParam
+    public function __construct(string $type, FunctionDefinition $function)
     {
         $this->type = $type;
-        return $this;
+        $this->function = $function;
     }
 
     /**
-     * 设置function属性，并返回当前对象方便链式调用
-     *
-     * @param FunctionDefinition $function 模型可以调用的工具列表（函数相关定义）
-     * @return ToolParam 当前对象
+     * 获取工具类型
+     * @return string
      */
-    public function setFunction(FunctionDefinition $function): ToolParam
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * 设置工具类型
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * 获取工具列表
+     * @return FunctionDefinition
+     */
+    public function getFunction(): FunctionDefinition
+    {
+        return $this->function;
+    }
+
+    /**
+     * 设置工具列表
+     * @param FunctionDefinition $function
+     */
+    public function setFunction(FunctionDefinition $function): void
     {
         $this->function = $function;
-        return $this;
+    }
+
+
+    public function toJson(): bool|string
+    {
+        return json_encode([
+            'type' => $this->type,
+            'function' => $this->function->toArray(), // 假设 FunctionDefinition 类有 toArray 方法
+        ], JSON_UNESCAPED_UNICODE);
     }
 }

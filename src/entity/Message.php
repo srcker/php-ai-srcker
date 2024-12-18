@@ -24,7 +24,7 @@ class Message
     private string|array $content;
 
     /**
-     * @var array|null 工具调用列表，仅当角色为 assistant 时有效
+     * @var array<MessageToolCallParam>|null 工具调用列表，仅当角色为 assistant 时有效
      */
     private ?array $tool_calls = null;
 
