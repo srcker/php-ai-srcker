@@ -7,7 +7,7 @@
  * @time    2024/12/18 下午4:00
  */
 
-namespace srcker\ai\entity;
+namespace srcker\openai\entity;
 
 class FunctionParam
 {

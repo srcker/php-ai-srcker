@@ -7,7 +7,7 @@
  * @time    2024/12/18 下午2:45
  */
 
-namespace srcker\ai\entity;
+namespace srcker\openai\entity;
 
 class Choice
 {
@@ -16,7 +16,7 @@ class Choice
     // 模型停止生成token的原因
     private string $finishReason;
     // 模型输出的内容
-    private Message $message;
+    private ChatMessage $message;
     // 当前内容的对数概率信息
     private ChoiceLogprobs $logprobs;
 
@@ -58,18 +58,18 @@ class Choice
 
     /**
      * 获取模型输出的内容
-     * @return Message
+     * @return ChatMessage
      */
-    public function getMessage(): Message
+    public function getMessage(): ChatMessage
     {
         return $this->message;
     }
 
     /**
      * 设置模型输出的内容
-     * @param Message $message
+     * @param ChatMessage $message
      */
-    public function setMessage(Message $message): void
+    public function setMessage(ChatMessage $message): void
     {
         $this->message = $message;
     }

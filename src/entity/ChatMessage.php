@@ -6,12 +6,14 @@
  * @email   sinda@srcker.com
  * @time    2024/12/17 下午11:34
  */
-namespace srcker\ai\entity;
+namespace srcker\openai\entity;
+
+use srcker\openai\enum\Role;
 
 /**
  * 消息类，用于表示对话中的一条消息。
  */
-class Message
+class ChatMessage implements \JsonSerializable
 {
     /**
      * @var Role 消息角色，表示该消息的发送者角色
@@ -124,4 +126,26 @@ class Message
 
         return $data;
     }
+
+
+    public function jsonSerialize(): array
+    {
+        $data = [
+            'role' => $this->role->value,
+            'content' => $this->content,
+        ];
+
+        // 如果是 assistant 角色且有工具调用，则加入 tool_calls 字段
+        if ($this->role === Role::ASSISTANT && $this->tool_calls) {
+            $data['tool_calls'] = $this->tool_calls;
+        }
+
+        return $data;
+    }
+
+    public function toJson(): string
+    {
+        return json_encode($this->jsonSerialize(), JSON_UNESCAPED_UNICODE);
+    }
+
 }

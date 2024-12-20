@@ -7,7 +7,7 @@
  * @time    2024/12/18 下午2:32
  */
 
-namespace srcker\ai\entity;
+namespace srcker\openai\entity;
 
 
 class MessageToolCallParam

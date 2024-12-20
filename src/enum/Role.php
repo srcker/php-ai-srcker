@@ -1,5 +1,5 @@
 <?php
-namespace srcker\ai\entity;
+namespace srcker\openai\enum;
 /**
  * @project php-ai-srcker
  * @class   Role

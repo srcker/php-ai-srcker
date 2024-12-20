@@ -1,9 +1,9 @@
 <?php
 
-namespace srcker\ai\chat;
-use srcker\ai\entity\Message;
-use srcker\ai\entity\StreamOptionsParam;
-use srcker\ai\entity\ToolParam;
+namespace srcker\openai\chat;
+use srcker\openai\entity\ChatMessage;
+use srcker\openai\entity\StreamOptionsParam;
+use srcker\openai\entity\ToolParam;
 
 /**
  * @project php-ai-srcker
@@ -18,7 +18,7 @@ class ChatCompletionRequest
     private string $model;
 
     // 由目前为止的对话组成的消息列表
-    /** @var Message[] */
+    /** @var ChatMessage[] */
     private array $messages = [];
 
     // 响应内容是否流式返回
@@ -35,23 +35,23 @@ class ChatCompletionRequest
     private $stop;
 
     // 频率惩罚系数。如果值为正，会根据新 token 在文本中的出现频率对其进行惩罚，从而降低模型逐字重复的可能性。取值范围为 [-2.0, 2.0]。
-    private float $frequencyPenalty = 0;
+    private float $frequencyPenalty;
 
     // 存在惩罚系数。如果值为正，会根据新 token 到目前为止是否出现在文本中对其进行惩罚，从而增加模型谈论新主题的可能性。取值范围为 [-2.0, 2.0]。
-    private float $presencePenalty = 0;
+    private float $presencePenalty;
 
     // 采样温度。控制了生成文本时对每个候选词的概率分布进行平滑的程度。取值范围为 [0, 1]。
-    private float $temperature = 1;
+    private float $temperature;
 
 
     // 核采样概率阈值。模型会考虑概率质量在 `top_p` 内的 token 结果。取值范围为 [0, 1]。
-    private float $topP = 0.7;
+    private float $topP;
 
     // 是否返回输出 tokens 的对数概率。
     private bool $logprobs = false;
 
     // 指定每个输出 token 位置最有可能返回的 token 数量，每个 token 都有关联的对数概率。仅当 `logprobs: true` 时可以设置 `top_logprobs` 参数，取值范围为 [0, 20]。
-    private int $topLogprobs = 0;
+    private int $topLogprobs;
 
     // 调整指定 token 在模型输出内容中出现的概率，使模型生成的内容更加符合特定的偏好。
     private array $logitBias = [];
@@ -92,13 +92,8 @@ class ChatCompletionRequest
         return $this->messages;
     }
 
-    /**
-     * 设置messages属性，并返回当前对象方便链式调用
-     *
-     * @param array $messages 由目前为止的对话组成的消息列表
-     * @return ChatCompletionRequest 当前对象
-     */
-    public function addMessage(array $messages): ChatCompletionRequest
+
+    public function addMessage(ChatMessage $messages): ChatCompletionRequest
     {
         $this->messages[] = $messages;
         return $this;
@@ -451,22 +446,22 @@ class ChatCompletionRequest
         if (!empty($this->stop)) {
             $result['stop'] = $this->stop;
         }
-        if ($this->frequencyPenalty!== 0) {
+        if (isset($this->frequencyPenalty)) {
             $result['frequency_penalty'] = $this->frequencyPenalty;
         }
-        if ($this->presencePenalty!== 0) {
+        if (isset($this->presencePenalty)) {
             $result['presence_penalty'] = $this->presencePenalty;
         }
-        if ($this->temperature!== 1) {
+        if (isset($this->temperature)) {
             $result['temperature'] = $this->temperature;
         }
-        if ($this->topP!== 0.7) {
+        if (isset($this->topP)) {
             $result['top_p'] = $this->topP;
         }
         if ($this->logprobs!== false) {
             $result['logprobs'] = $this->logprobs;
         }
-        if ($this->topLogprobs!== 0) {
+        if (isset($this->topLogprobs)) {
             $result['top_logprobs'] = $this->topLogprobs;
         }
         if (!empty($this->logitBias)) {
