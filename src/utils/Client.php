@@ -122,12 +122,15 @@ class Client
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, !$stream);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers->formatHeaders());
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-
 
         // 设置代理
         if ($this->proxy) {
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
+        }
+
+        // 设置额外的 cURL 配置
+        foreach ($this->options as $option => $value) {
+            curl_setopt($ch, $option, $value);
         }
 
         // 处理流式返回
@@ -141,10 +144,7 @@ class Client
                 return strlen($data);
             });
         }
-        // 设置额外的 cURL 配置
-        foreach ($this->options as $option => $value) {
-            curl_setopt($ch, $option, $value);
-        }
+
         $response = curl_exec($ch);
         if (curl_errno($ch)) {
             throw new Exception('CURL Error: ' . curl_error($ch));

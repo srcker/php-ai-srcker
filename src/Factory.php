@@ -45,6 +45,22 @@ class Factory
 
     private array $queryParams = [];
 
+    private array $options = [];
+
+    private ?string $proxy = null;
+
+
+    public function withProxy(string $proxy): self
+    {
+        $this->proxy = $proxy;
+        return $this;
+    }
+
+    public function withOptions(array $options): self
+    {
+        $this->options = $options;
+        return $this;
+    }
 
     public function withApiKey(string $apiKey): self
     {
@@ -125,6 +141,8 @@ class Factory
                 ->setHeaders($headers)
                 ->setParams($queryParams)
                 ->setBaseUrl($this->baseUrl)
+                ->setOptions($this->options)
+                ->setProxy($this->proxy)
                 ->request(method: Method::POST, data: $this->chatCompletionRequest->toJson());
         } catch (Exception $e) {
             throw new Exception("Error while creating client: ". $e->getMessage());
@@ -168,6 +186,8 @@ class Factory
                 ->setHeaders($headers)
                 ->setParams($queryParams)
                 ->setBaseUrl($this->baseUrl)
+                ->setOptions($this->options)
+                ->setProxy($this->proxy)
                 ->request(method: Method::POST, data: $this->chatCompletionRequest->toJson(),stream: true,onChunk: $this->streamHandler);
         } catch (Exception $e) {
             throw new Exception("Error while creating client: ". $e->getMessage());
