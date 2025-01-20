@@ -14,6 +14,8 @@
             ->withApiKey("****-6904-***-ba03-**")
             ->withBaseUrl("https://ark.cn-beijing.volces.com/api/v3/chat/completions")
             ->withHttpHeader("Content-Type", "application/json")
+            ->withOptions([])
+            ->withProxy($this->proxy) //格式: "http://user:password@host:port"
             ->withChatCompletionRequest($chatCompletionRequest)
             ->make();
 
@@ -33,6 +35,8 @@
             ->withApiKey("****-333-****-ba03-***")
             ->withBaseUrl("https://ark.cn-beijing.volces.com/api/v3/chat/completions")
             ->withHttpHeader("Content-Type", "application/json")
+            ->withOptions([])
+            ->withProxy($this->proxy) //格式: "http://user:password@host:port"
             ->withChatCompletionRequest($chatCompletionRequest)
             ->withStreamHandler(function ($chunk) {
                 echo $chunk;
