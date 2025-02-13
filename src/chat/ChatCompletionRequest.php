@@ -60,6 +60,25 @@ class ChatCompletionRequest
     /** @var ToolParam[] **/
     private array $tools = [];
 
+    // 响应格式
+    private array $responseFormat = [];
+
+    /**
+     * 获取响应格式
+     */
+    public function getResponseFormat(): array
+    {
+        return $this->responseFormat;
+    }
+
+    /**
+     * 设置响应格式
+     */
+    public function setResponseFormat(array $responseFormat): void
+    {
+        $this->responseFormat = $responseFormat;
+    }
+
     /**
      * 获取model属性
      *
@@ -414,6 +433,9 @@ class ChatCompletionRequest
         if (!empty($this->tools)) {
             $result['tools'] = $this->tools;
         }
+        if (!empty($this->responseFormat)) {
+            $result['response_format'] = $this->responseFormat;
+        }
 
         return $result;
     }
@@ -469,6 +491,9 @@ class ChatCompletionRequest
         }
         if (!empty($this->tools)) {
             $result['tools'] = $this->tools;
+        }
+        if (!empty($this->responseFormat)) {
+            $result['response_format'] = $this->responseFormat;
         }
 
         return json_encode($result,JSON_UNESCAPED_UNICODE);
