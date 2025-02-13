@@ -24,3 +24,5 @@
 /app/Config/database.php
 /vendors/*
 /test/*
+.idea
+composer.lock
